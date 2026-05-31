@@ -93,7 +93,7 @@ window.COURSE_INFO = {
   weeks: "4",
   duration: "60 דק׳",
   freq: "2 בשבוע",
-  group: "עד 6 מתאמנים",
+  group: "עד 10 מתאמנים",
   location: "פארק / מתקן שכונתי",
 };
 
