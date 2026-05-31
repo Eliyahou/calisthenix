@@ -167,47 +167,52 @@
     max-width: 56ch; margin: 32px 0 36px;
     font-size: 18px; line-height: 1.55; font-weight: 400;
   }
- .hero-meta {
+.hero-meta {
   display: grid; 
-  grid-template-columns: repeat(5, 1fr); /* 5 עמודות שוות */
+  /* הגדרת 2 טורים שווים */
+  grid-template-columns: 1fr 1fr; 
+  
+  /* קו מפריד עליון ותחתון לכל המבנה */
   border-top: var(--rule-w) solid var(--rule);
+  border-bottom: var(--rule-w) solid var(--rule);
   margin-top: 56px;
 }
 
-.hero-meta > div {
+/* עיצוב כללי לכל התאים */
+.hero-meta .item {
   padding: 18px var(--pad);
-  /* קו הפרדה בצד (בדפדפן בעברית זה יהיה בצד שמאל) */
-  border-inline-end: var(--rule-w) solid var(--rule); 
-  text-align: center; /* ממרכז את הטקסט בתוך התא */
+  text-align: center;
+  /* קו מפריד תחתון לכל התאים */
+  border-bottom: var(--rule-w) solid var(--rule); 
 }
 
-/* ביטול הקו באלמנט האחרון */
-.hero-meta > div:last-child {
-  border-inline-end: 0;
+/* קו אנכי מפריד בין העמודות - רק לטור הראשון (הימני בעברית) */
+.hero-meta .item:nth-child(odd) {
+  border-inline-end: var(--rule-w) solid var(--rule);
 }
 
-/* עיצוב הכותרת הקטנה (הקטגוריה) */
+/* שורה 3: התא האחרון של "עד 10" */
+.hero-meta .item.full-width {
+  grid-column: span 2; /* מותח את התא שיתפוס את שני הטורים */
+  border-inline-end: 0; /* מבטל את הקו האנכי */
+  border-bottom: 0; /* מבטל את הקו התחתון הפנימי כי יש כבר border-bottom לגריד עצמו */
+}
+
+/* עיצוב הטקסט (מפתח וערך) */
 .hero-meta .k { 
   font-family: "JetBrains Mono", sans-serif; 
-  font-size: 12px; 
+  font-size: 11px; 
   letter-spacing: 0.05em; 
   text-transform: uppercase; 
   opacity: 0.65; 
   margin-bottom: 6px;
 }
 
-/* עיצוב הנתון הגדול */
 .hero-meta .v { 
   font-family: "Archivo Black", sans-serif; 
-  font-size: 24px; 
+  font-size: 22px; 
   font-weight: bold;
 }
-  /* כברירת מחדל לניידים: 2 עמודות */
-.hero-meta {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-}
-
 /* למסכים רחבים יותר (מחשבים וטאבלטים): 5 עמודות */
 @media (min-width: 768px) {
   .hero-meta {
