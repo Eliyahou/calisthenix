@@ -2,24 +2,36 @@
 const { useState, useEffect, useMemo } = React;
 
 const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
-  "accent":     "#D6FF3F",
-  "mode":       "paper",
-  "density":    "regular",
-  "heroVariant":"split",
-  "fontPair":   "heebo-archivo"
-}/*EDITMODE-END*/;
+  "accent": "#FFFFFF",
+  "theme": "forest",
+  "texture": "grain",
+  "density": "airy",
+  "heroVariant": "split",
+  "fontPair": "heebo-archivo"
+} /*EDITMODE-END*/;
+
+// full-site background themes (sheet + ink + frame)
+const THEMES = {
+  bone: { label: "בז׳ (Bone)", paper: "#ECEAE2", ink: "#0E0E0C", backdrop: "#17160F", dark: false },
+  white: { label: "לבן נקי (White)", paper: "#F7F5F0", ink: "#0E0E0C", backdrop: "#1A1A17", dark: false },
+  sand: { label: "חול (Sand)", paper: "#E6DAC4", ink: "#1B1408", backdrop: "#1B1408", dark: false },
+  concrete: { label: "בטון (Concrete)", paper: "#D8D9D4", ink: "#15160F", backdrop: "#15160F", dark: false },
+  ink: { label: "דיו (Ink)", paper: "#0E0E0C", ink: "#ECEAE2", backdrop: "#000000", dark: true },
+  blueprint: { label: "בלופרינט (Blueprint)", paper: "#0F1A2B", ink: "#DCE7FA", backdrop: "#060B14", dark: true },
+  forest: { label: "זית (Olive)", paper: "#1A1F12", ink: "#E8EBD8", backdrop: "#0C0F08", dark: true }
+};
 
 const ACCENTS = [
-  "#D6FF3F", // sulfur lime
-  "#C6FF00", // acid green
-  "#FF5A1F", // hazard orange
-  "#FF3D6E", // alert pink
-  "#FF2D2D", // signal red
-  "#2D5BFF", // signal blue
-  "#00E0C7", // cyan
-  "#B388FF", // violet
-  "#FF8A00", // amber
-  "#FFFFFF", // paper white
+"#D6FF3F", // sulfur lime
+"#C6FF00", // acid green
+"#FF5A1F", // hazard orange
+"#FF3D6E", // alert pink
+"#FF2D2D", // signal red
+"#2D5BFF", // signal blue
+"#00E0C7", // cyan
+"#B388FF", // violet
+"#FF8A00", // amber
+"#FFFFFF" // paper white
 ];
 
 // choose legible ink (black/white) against any accent via luminance
@@ -42,8 +54,8 @@ function Strip({ num, title, en, meta }) {
         <span>{title} <span style={{ opacity: 0.4, marginInlineStart: 8 }}>/ {en}</span></span>
       </div>
       <div className="strip-meta">{meta}</div>
-    </div>
-  );
+    </div>);
+
 }
 
 /* ───────── Nav ───────── */
@@ -52,8 +64,8 @@ function Nav() {
     <nav className="nav rule-b">
       <div className="nav-left">
         <a href="#course" className="nav-link">הקורס</a>
-        <a href="#skills"  className="nav-link">מיומנויות</a>
-        <a href="#about"   className="nav-link">משה</a>
+        <a href="#skills" className="nav-link">מיומנויות</a>
+        <a href="#about" className="nav-link">משה</a>
         <a href="#pricing" className="nav-link">מחיר</a>
       </div>
       <div className="nav-mark">CALISTENIX</div>
@@ -62,12 +74,12 @@ function Nav() {
           <span className="live-dot" />
           הרשמה פתוחה · קורס יוני 26
         </span>
-        <a href="#contact" className="btn btn--fill" style={{ padding: "10px 16px", fontSize: 12 }}>
+        <a href="#contact" className="btn btn--fill" style={{ padding: "10px 16px", fontSize: 12, color: "rgb(255, 255, 255)", backgroundColor: "rgb(160, 175, 82)" }} data-comment-anchor="3f17df5c02-a-65-9">
           הרשמה לקורס <span className="arrow">→</span>
         </a>
       </div>
-    </nav>
-  );
+    </nav>);
+
 }
 
 /* ───────── Hero ───────── */
@@ -87,11 +99,11 @@ function Hero({ variant }) {
         </p>
         <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
           <a href="#contact" className="btn btn--accent">הרשמה לקורס <span className="arrow">→</span></a>
-          <a href="#course"  className="btn">מבנה הקורס</a>
+          <a href="#course" className="btn">מבנה הקורס</a>
         </div>
         <HeroMeta />
-      </section>
-    );
+      </section>);
+
   }
   // default "split" — type on the right, photo on the left (RTL)
   return (
@@ -109,19 +121,17 @@ function Hero({ variant }) {
         </p>
         <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
           <a href="#contact" className="btn btn--accent">הרשמה לקורס <span className="arrow">→</span></a>
-          <a href="#course"  className="btn">מבנה הקורס</a>
+          <a href="#course" className="btn">מבנה הקורס</a>
         </div>
       </div>
       <div style={{
         gridColumn: "span 4",
         borderInlineStart: "var(--rule-w) solid var(--rule)",
         padding: "var(--pad)",
-        display: "flex", flexDirection: "column", gap: "var(--pad)",
+        display: "flex", flexDirection: "column", gap: "var(--pad)"
       }}>
         <div className="hero-photo">
           <img className="media-fill" src="uploads/moshe.jpeg" alt="עמידת ידיים במדבר" />
-          <div className="label">FIG. 01 — HANDSTAND</div>
-          <div className="corner">EILAT · 06:14</div>
         </div>
         <div style={{ borderTop: "var(--rule-w) solid var(--rule)", paddingTop: 16 }}>
           <div className="mono" style={{ fontSize: 10, letterSpacing: "0.2em", opacity: 0.6, textTransform: "uppercase" }}>
@@ -138,8 +148,8 @@ function Hero({ variant }) {
       <div style={{ gridColumn: "span 12" }}>
         <HeroMeta />
       </div>
-    </section>
-  );
+    </section>);
+
 }
 function HeroMeta() {
   return (
@@ -148,8 +158,8 @@ function HeroMeta() {
       <div><div className="k">משך מפגש</div><div className="v">60ʹ</div></div>
       <div><div className="k">פעמיים בשבוע</div><div className="v">04wk</div></div>
       <div><div className="k">קבוצה</div><div className="v">עד 6</div></div>
-    </div>
-  );
+    </div>);
+
 }
 
 /* ───────── Marquee ───────── */
@@ -159,10 +169,10 @@ function Marquee() {
     <div className="marquee">
       <div className="marquee-track">
         <span>{items.map((s, i) => <span key={i}>{s}</span>)}</span>
-        <span>{items.map((s, i) => <span key={"b"+i}>{s}</span>)}</span>
+        <span>{items.map((s, i) => <span key={"b" + i}>{s}</span>)}</span>
       </div>
-    </div>
-  );
+    </div>);
+
 }
 
 /* ───────── Skill Tree ───────── */
@@ -171,32 +181,32 @@ function SkillTree() {
     <section id="skills">
       <Strip num="02" title="עץ המיומנויות" en="SKILL TREE" meta="פרוגרסיה הדרגתית · 5 מסלולים · 40 שלבים" />
       <div className="tree-grid">
-        {window.SKILL_TREE.map((col) => (
-          <div className="tree-col" key={col.cat}>
+        {window.SKILL_TREE.map((col) =>
+        <div className="tree-col" key={col.cat}>
             <div className="tree-col-head">
               <div className="cat">{col.cat} / 08</div>
               <div className="name-he">{col.he}</div>
               <div className="name" style={{ opacity: 0.4, fontSize: 13, marginTop: 4, letterSpacing: "0.15em" }}>{col.en}</div>
             </div>
-            {col.skills.map((s, i) => (
-              <div className={`skill ${s.state}`} key={i}>
+            {col.skills.map((s, i) =>
+          <div className={`skill ${s.state}`} key={i}>
                 <div className="lvl">{s.lvl}</div>
                 <div className="nm">{s.he}<small>{s.en}</small></div>
                 <div className="dot" />
               </div>
-            ))}
+          )}
           </div>
-        ))}
+        )}
       </div>
       <div className="rule-x" style={{
         display: "flex", justifyContent: "space-between", padding: "14px var(--pad)",
-        fontFamily: "JetBrains Mono", fontSize: 11, letterSpacing: "0.12em", opacity: 0.7,
+        fontFamily: "JetBrains Mono", fontSize: 11, letterSpacing: "0.12em", opacity: 0.7
       }}>
         <span>● הושלם &nbsp;&nbsp; ◐ בתהליך &nbsp;&nbsp; ○ עתיד</span>
         <span>גרסה 2026.1 · עודכן 05/2026</span>
       </div>
-    </section>
-  );
+    </section>);
+
 }
 
 /* ───────── Programs ───────── */
@@ -205,15 +215,15 @@ function Programs() {
     <section id="course">
       <Strip num="03" title="מבנה הקורס" en="COURSE" meta="8 מפגשים · 4 שבועות · 60 דקʳ למפגש" />
       <div className="course-grid">
-        {window.COURSE.map((s) => (
-          <div className="course-cell" key={s.num}>
+        {window.COURSE.map((s) =>
+        <div className="course-cell" key={s.num}>
             <div className="ssn">מפגש {s.num}</div>
             <div className="num">{s.num}</div>
             <h4>{s.he}</h4>
             <div className="en">{s.en}</div>
             <div className="desc">{s.desc}</div>
           </div>
-        ))}
+        )}
       </div>
       <div className="course-cta rule-b">
         <div className="lead">
@@ -222,8 +232,8 @@ function Programs() {
         </div>
         <a href="#contact" className="btn btn--accent">הרשמה לקורס <span className="arrow">→</span></a>
       </div>
-    </section>
-  );
+    </section>);
+
 }
 
 /* ───────── About ───────── */
@@ -235,13 +245,6 @@ function About() {
         <div className="photo-wrap">
           <div className="photo">
             <video className="media-fill" src="uploads/moshe-video-1.mp4" autoPlay muted loop playsInline></video>
-            <div className="lbl">REC — MOSHE / MOTION</div>
-            <div style={{ position: "absolute", bottom: 12, insetInlineEnd: 12,
-              fontFamily: "JetBrains Mono", fontSize: 10, letterSpacing: "0.18em",
-              background: "var(--paper)", border: "var(--rule-w) solid var(--rule)", padding: "5px 9px", zIndex: 2,
-            }}>
-              ● LIVE LOOP
-            </div>
           </div>
         </div>
         <div className="body">
@@ -266,8 +269,8 @@ function About() {
           </div>
         </div>
       </div>
-    </section>
-  );
+    </section>);
+
 }
 
 /* ───────── Pricing ───────── */
@@ -286,8 +289,8 @@ function Pricing() {
             </tr>
           </thead>
           <tbody>
-            {window.PRICING_ROWS.map((r, i) => (
-              <tr key={i} className={r.hi ? "hi" : ""}>
+            {window.PRICING_ROWS.map((r, i) =>
+            <tr key={i} className={r.hi ? "hi" : ""}>
                 <td>
                   <div style={{ fontWeight: 700 }}>{r.he}</div>
                   <div className="mono" style={{ fontSize: 10, letterSpacing: "0.16em", opacity: 0.55, textTransform: "uppercase", marginTop: 2 }}>{r.en}</div>
@@ -296,15 +299,15 @@ function Pricing() {
                 <td className="num">{r.price}</td>
                 <td className="mono" style={{ fontSize: 12, opacity: 0.75 }}>{r.per}</td>
               </tr>
-            ))}
+            )}
           </tbody>
         </table>
         <div className="pricing-note">
           * הרשמה מוקדמת מוגבלת ל-3 הראשונים · תשלום בביט / אשראי / מזומן · אפשר לפרוס לתשלומים
         </div>
       </div>
-    </section>
-  );
+    </section>);
+
 }
 
 /* ───────── Contact ───────── */
@@ -327,21 +330,21 @@ function Contact() {
           <div className="row"><div className="k">מחזור הבא</div><div className="v">יוני 2026 · הרשמה פתוחה</div></div>
         </div>
         <div>
-          {sent ? (
-            <div style={{ padding: "var(--pad)" }}>
+          {sent ?
+          <div style={{ padding: "var(--pad)" }}>
               <div className="submitted">
                 <span style={{ fontFamily: "Archivo Black", fontSize: 22 }}>✓</span>
                 <div>
                   ההודעה נשלחה. אחזור אליך תוך 24 שעות.
-                  <div className="mono" style={{ fontSize: 11, opacity: 0.7, marginTop: 4 }}>REF-{Math.floor(Math.random()*900000+100000)}</div>
+                  <div className="mono" style={{ fontSize: 11, opacity: 0.7, marginTop: 4 }}>REF-{Math.floor(Math.random() * 900000 + 100000)}</div>
                 </div>
               </div>
               <button onClick={() => setSent(false)} className="btn" style={{ marginTop: 18 }}>
                 שלח עוד הודעה <span className="arrow">→</span>
               </button>
-            </div>
-          ) : (
-            <form className="form" onSubmit={(e) => { e.preventDefault(); setSent(true); }}>
+            </div> :
+
+          <form className="form" onSubmit={(e) => {e.preventDefault();setSent(true);}}>
               <div className="row">
                 <div className="field"><label>שם מלא</label><input required type="text" placeholder="ישראל ישראלי" /></div>
                 <div className="field"><label>גיל</label><input type="number" placeholder="28" /></div>
@@ -381,11 +384,11 @@ function Contact() {
                 <button type="submit" className="btn btn--accent">שלח <span className="arrow">→</span></button>
               </div>
             </form>
-          )}
+          }
         </div>
       </div>
-    </section>
-  );
+    </section>);
+
 }
 
 /* ───────── Footer ───────── */
@@ -402,8 +405,8 @@ function Foot() {
         <div style={{ textAlign: "end" }}>נבנה בתל אביב · v2026.1</div>
       </div>
       <div className="big">CALISTENIX</div>
-    </footer>
-  );
+    </footer>);
+
 }
 
 /* ───────── App ───────── */
@@ -416,9 +419,16 @@ function App() {
     r.style.setProperty("--accent", t.accent);
     // pick legible ink against accent (works for any custom color)
     r.style.setProperty("--accent-ink", inkFor(t.accent));
+    // apply full-site background theme
+    const th = THEMES[t.theme] || THEMES.bone;
+    r.style.setProperty("--paper", th.paper);
+    r.style.setProperty("--ink", th.ink);
+    r.style.setProperty("--rule", th.ink);
+    r.style.setProperty("--backdrop", th.backdrop);
     document.body.dataset.density = t.density;
-    document.body.dataset.mode = t.mode;
-  }, [t.accent, t.density, t.mode]);
+    document.body.dataset.mode = th.dark ? "ink" : "paper";
+    document.body.dataset.texture = t.texture;
+  }, [t.accent, t.density, t.theme, t.texture]);
 
   // font pair switching
   const fontStyles = useMemo(() => {
@@ -455,43 +465,49 @@ function App() {
           label="צבע הדגשה"
           value={t.accent}
           options={ACCENTS}
-          onChange={(v) => setTweak("accent", v)}
-        />
+          onChange={(v) => setTweak("accent", v)} />
+        
         <TweakColor
           label="צבע חופשי"
           value={t.accent}
-          onChange={(v) => setTweak("accent", v)}
-        />
-        <TweakSection label="Mode" />
+          onChange={(v) => setTweak("accent", v)} />
+        
+        <TweakSection label="Background" />
+        <TweakSelect
+          label="רקע האתר"
+          value={t.theme}
+          options={Object.keys(THEMES).map((k) => ({ value: k, label: THEMES[k].label }))}
+          onChange={(v) => setTweak("theme", v)} />
+        
         <TweakRadio
-          label="רקע"
-          value={t.mode}
-          options={["paper", "ink"]}
-          onChange={(v) => setTweak("mode", v)}
-        />
+          label="טקסטורה"
+          value={t.texture}
+          options={["grid", "grain", "none"]}
+          onChange={(v) => setTweak("texture", v)} />
+        
         <TweakSection label="Layout" />
         <TweakRadio
           label="צפיפות"
           value={t.density}
           options={["tight", "regular", "airy"]}
-          onChange={(v) => setTweak("density", v)}
-        />
+          onChange={(v) => setTweak("density", v)} />
+        
         <TweakRadio
           label="Hero"
           value={t.heroVariant}
           options={["split", "stack"]}
-          onChange={(v) => setTweak("heroVariant", v)}
-        />
+          onChange={(v) => setTweak("heroVariant", v)} />
+        
         <TweakSection label="Type" />
         <TweakRadio
           label="זוג גופנים"
           value={t.fontPair}
           options={["heebo-archivo", "serif-mono"]}
-          onChange={(v) => setTweak("fontPair", v)}
-        />
+          onChange={(v) => setTweak("fontPair", v)} />
+        
       </TweaksPanel>
-    </>
-  );
+    </>);
+
 }
 
 ReactDOM.createRoot(document.getElementById("root")).render(<App />);
