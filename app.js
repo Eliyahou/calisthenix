@@ -153,30 +153,12 @@ function Hero({ variant }) {
 }
 function HeroMeta() {
   return (
-  <div class="hero-meta">
-  <div class="item">
-    <div class="k">מפגשים</div>
-    <div class="v">08</div>
-  </div>
-  <div class="item">
-    <div class="k">משך מפגש</div>
-    <div class="v">60'</div>
-  </div>
-  
-  <div class="item">
-    <div class="k">פעמיים בשבוע</div>
-    <div class="v">בערב</div>
-  </div>
-  <div class="item">
-    <div class="k">גילאים</div>
-    <div class="v">13 - 16</div>
-  </div>
-  
-  <div class="item full-width">
-    <div class="k">קבוצה</div>
-    <div class="v">עד 10</div>
-  </div>
-</div>);
+    <div className="hero-meta">
+      <div><div className="k">מפגשים</div><div className="v">08</div></div>
+      <div><div className="k">משך מפגש</div><div className="v">60ʹ</div></div>
+      <div><div className="k">פעמיים בשבוע</div><div className="v">04wk</div></div>
+      <div><div className="k">קבוצה</div><div className="v">עד 6</div></div>
+    </div>);
 
 }
 
@@ -279,6 +261,13 @@ function About() {
             השיטה שלי פשוטה: טכניקה נקייה לפני כוח, ופרוגרסיה הדרגתית שמתאימה לכל אחד.
             בקורס אני לוקח אתכם מההתחלה — גם אם מעולם לא עשיתם שכיבת סמיכה אחת.
           </p>
+          <div className="about-stats">
+            <div><div className="v">17</div><div className="k">גיל</div></div>
+            <div><div className="v">4+</div><div className="k">שנות אימון</div></div>
+            <div><div className="v">08</div><div className="k">מפגשים בקורס</div></div>
+            <div><div className="v">עד 6</div><div className="k">בקבוצה</div></div>
+          </div>
+        </div>
       </div>
     </section>);
 
