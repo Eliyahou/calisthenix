@@ -30,7 +30,7 @@
   }
 
   * { box-sizing: border-box; }
-  html, body { margin: 0; padding: 0; background: var(--backdrop); color: var(--ink); }
+  html, body { margin: 0; padding: 0; background: var(--backdrop); color: var(--ink); overflow-x: hidden; max-width: 100%; }
   body {
     font-family: "Heebo", "Frank Ruhl Libre", system-ui, sans-serif;
     font-feature-settings: "ss01", "kern";
@@ -462,23 +462,30 @@
 
   /* ───── phones ───── */
   @media (max-width: 640px) {
-    :root { --pad: 18px; }
-    .nav { height: 52px; }
+    :root { --pad: 16px; }
+    .shell { max-width: 100%; overflow-x: hidden; }
+    .nav { height: 50px; }
     .nav-status { display: none !important; }
-    .nav-mark { padding: 0 16px; font-size: 15px; }
-    .nav-right { padding: 0 14px; }
-    .nav-right .btn { padding: 9px 12px !important; font-size: 11px !important; }
+    .nav-mark { padding: 0 12px; font-size: 13px; letter-spacing: 0.06em; }
+    .nav-right { padding: 0 12px; }
+    .nav-right .btn { padding: 8px 11px !important; font-size: 11px !important; }
 
-    .hero { padding: 40px var(--pad) 36px; }
-    .hero > div:first-child { padding: 40px var(--pad) !important; }
-    .hero .head { font-size: clamp(46px, 17vw, 84px); line-height: 0.9; }
-    .hero .sub { font-size: 16px; margin: 22px 0 26px; }
+    .hero { padding: 36px var(--pad) 32px; }
+    .hero > div:first-child { padding: 36px var(--pad) !important; }
+    .hero .head { font-size: clamp(40px, 15vw, 60px); line-height: 0.92; }
+    .hero .sub { font-size: 15px; line-height: 1.5; margin: 20px 0 24px; }
+    .hero .head .mark { padding: 0.02em 0.12em 0.08em; }
     .hero-photo { aspect-ratio: 1 / 1; }
-    /* photo column: drop the side border, add a top divider when stacked */
     .hero.grid12 > div:nth-child(2) {
       border-inline-start: 0 !important;
       border-top: var(--rule-w) solid var(--rule);
     }
+
+    .eyebrow { font-size: 10px; letter-spacing: 0.14em; }
+    .strip { grid-template-columns: 60px 1fr; }
+    .strip-num { font-size: 15px; }
+    .strip-title { font-size: 10px; letter-spacing: 0.14em; padding: 10px var(--pad); }
+    .strip-meta { display: none; }
 
     .tree-grid { grid-template-columns: 1fr; }
     .tree-col { border-inline-end: 0; border-bottom: var(--rule-w) solid var(--rule); }
@@ -490,11 +497,15 @@
     .about-stats { grid-template-columns: 1fr 1fr; }
     .about-stats div:nth-child(2n) { border-inline-end: 0; }
     .about-stats div:nth-child(-n+2) { border-bottom: var(--rule-w) solid var(--rule); }
-    .about .body h2, .contact .info h2 { font-size: clamp(40px, 12vw, 64px); }
+    .about .body h2, .contact .info h2 { font-size: clamp(36px, 11vw, 56px); }
+    .about .body p { font-size: 15px; }
 
-    .marquee { font-size: 15px; }
+    .contact .info .row { grid-template-columns: 76px 1fr; }
+    .marquee { font-size: 14px; }
+    .marquee-track { gap: 24px; }
     .foot { grid-template-columns: 1fr; text-align: start; gap: 10px; }
     .foot > div { text-align: start !important; }
+    .foot .big { font-size: 22vw; }
   }
 </style>
 </head>
