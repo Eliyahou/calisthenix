@@ -70,7 +70,7 @@ function Nav() {
       </div>
       <div className="nav-mark">CALISTENIX</div>
       <div className="nav-right">
-        <span className="mono" style={{ display: "inline-flex", alignItems: "center", gap: 8 }}>
+        <span className="mono nav-status" style={{ display: "inline-flex", alignItems: "center", gap: 8 }}>
           <span className="live-dot" />
           הרשמה פתוחה · קורס יוני 26
         </span>
@@ -278,7 +278,7 @@ function Pricing() {
   return (
     <section id="pricing">
       <Strip num="05" title="מחיר הקורס" en="PRICING" meta="₪ · שקלים · כולל הכל" />
-      <div style={{ padding: 0 }}>
+      <div className="pricing-wrap" style={{ padding: 0 }}>
         <table className="pricing-table">
           <thead>
             <tr>
