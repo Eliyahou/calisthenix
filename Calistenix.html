@@ -167,19 +167,52 @@
     max-width: 56ch; margin: 32px 0 36px;
     font-size: 18px; line-height: 1.55; font-weight: 400;
   }
-  .hero-meta {
-    display: grid; grid-template-columns: repeat(4, 1fr);
-    border-top: var(--rule-w) solid var(--rule);
-    margin-top: 56px;
-  }
-  .hero-meta > div {
-    padding: 18px var(--pad);
-    border-inline-end: var(--rule-w) solid var(--rule);
-  }
-  .hero-meta > div:last-child { border-inline-end: 0; }
-  .hero-meta .k { font-family: "JetBrains Mono"; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; opacity: 0.65; }
-  .hero-meta .v { font-family: "Archivo Black"; font-size: 24px; margin-top: 6px; letter-spacing: 0.02em; }
+ .hero-meta {
+  display: grid; 
+  /* הגדרת 2 טורים שווים */
+  grid-template-columns: 1fr 1fr; 
+  
+  /* קו מפריד עליון ותחתון לכל המבנה */
+  border-top: var(--rule-w) solid var(--rule);
+  border-bottom: var(--rule-w) solid var(--rule);
+  margin-top: 56px;
+}
 
+/* עיצוב כללי לכל התאים */
+.hero-meta .item {
+  padding: 18px var(--pad);
+  text-align: center;
+  /* קו מפריד תחתון לכל התאים */
+  border-bottom: var(--rule-w) solid var(--rule); 
+}
+
+/* קו אנכי מפריד בין העמודות - רק לטור הראשון (הימני בעברית) */
+.hero-meta .item:nth-child(odd) {
+  border-inline-end: var(--rule-w) solid var(--rule);
+}
+
+/* שורה 3: התא האחרון של "עד 10" */
+.hero-meta .item.full-width {
+  grid-column: span 2; /* מותח את התא שיתפוס את שני הטורים */
+  border-inline-end: 0; /* מבטל את הקו האנכי */
+  border-bottom: 0; /* מבטל את הקו התחתון הפנימי כי יש כבר border-bottom לגריד עצמו */
+}
+
+/* עיצוב הטקסט (מפתח וערך) */
+.hero-meta .k { 
+  font-family: "JetBrains Mono", sans-serif; 
+  font-size: 11px; 
+  letter-spacing: 0.05em; 
+  text-transform: uppercase; 
+  opacity: 0.65; 
+  margin-bottom: 6px;
+}
+
+.hero-meta .v { 
+  font-family: "Archivo Black", sans-serif; 
+  font-size: 22px; 
+  font-weight: bold;
+}
   /* hero photo slot */
   .hero-photo {
     position: relative;
