@@ -279,33 +279,6 @@ function About() {
             השיטה שלי פשוטה: טכניקה נקייה לפני כוח, ופרוגרסיה הדרגתית שמתאימה לכל אחד.
             בקורס אני לוקח אתכם מההתחלה — גם אם מעולם לא עשיתם שכיבת סמיכה אחת.
           </p>
-          <div className="about-stats">
-           <div>
-    <div class="k">מפגשים</div>
-    <div class="v">08</div>
-  </div>
-  
-  <div>
-    <div class="k">משך מפגש</div>
-    <div class="v">60'</div>
-  </div>
-  
-  <div>
-    <div class="k">פעמיים בשבוע</div>
-    <div class="v">בערב</div>
-  </div>
-  
-  <div>
-    <div class="k">גילאים</div>
-    <div class="v">13 - 16</div>
-  </div>
-  
-  <div>
-    <div class="k">קבוצה</div>
-    <div class="v">עד 10</div>
-  </div>
-          </div>
-        </div>
       </div>
     </section>);
 
