@@ -344,8 +344,7 @@
 
     .hero-meta {
       display: grid;
-      grid-template-columns: repeat(5, 1fr);
-      /* 4 עמודות שוות לשורה הראשונה */
+      grid-template-columns: repeat(4, 1fr);
       border-top: var(--rule-w) solid var(--rule);
       margin-top: 56px;
     }
@@ -354,23 +353,12 @@
       padding: 18px var(--pad);
       border-inline-end: var(--rule-w) solid var(--rule);
       border-bottom: var(--rule-w) solid var(--rule);
-      /* קו תחתון לשורה הראשונה */
+      /* השורה החדשה שהתווספה */
     }
 
-    /* איחוד של כל ההגדרות לילד האחרון */
     .hero-meta>div:last-child {
-      grid-column: span 5;
-      /* מותח את "קבוצה" על פני כל 4 העמודות של השורה מעליו */
-      text-align: center;
-      /* ממרכז את הטקסט לחלוטין */
       border-inline-end: 0;
-      /* מוחק את הקו האנכי בצד */
-      border-bottom: 0;
-      /* אופציונלי: מוחק את הקו התחתון לשורה האחרונה (אם תרצה) */
-      padding-top: 24px;
-      /* מרווח נעים מהקו שמעליו */
     }
-
 
     .hero-meta .k {
       font-family: "JetBrains Mono";
