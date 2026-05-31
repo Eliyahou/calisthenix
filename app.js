@@ -157,9 +157,9 @@ function HeroMeta() {
       <div><div className="k">מפגשים</div><div className="v">08</div></div>
       <div><div className="k">משך מפגש</div><div className="v">60ʹ</div></div>
       <div><div className="k">פעמיים בשבוע</div><div className="v">בערב</div></div>
-      <div><div className="k">קבוצה</div><div className="v">עד 10</div></div>
       <div><div className="k">גילאים</div><div className="v">13 - 16</div></div>
-    </div>);
+      <div><div className="k">קבוצה</div><div className="v">עד 10</div></div>
+     </div>);
 
 }
 
