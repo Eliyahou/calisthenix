@@ -167,19 +167,53 @@
     max-width: 56ch; margin: 32px 0 36px;
     font-size: 18px; line-height: 1.55; font-weight: 400;
   }
-  .hero-meta {
-    display: grid; grid-template-columns: repeat(5, 1fr);
-    border-top: var(--rule-w) solid var(--rule);
-    margin-top: 56px;
-  }
-  .hero-meta > div {
-    padding: 18px var(--pad);
-    border-inline-end: var(--rule-w) solid var(--rule);
-  }
-  .hero-meta > div:last-child { border-inline-end: 0; }
-  .hero-meta .k { font-family: "JetBrains Mono"; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; opacity: 0.65; }
-  .hero-meta .v { font-family: "Archivo Black"; font-size: 24px; margin-top: 6px; letter-spacing: 0.02em; }
+ .hero-meta {
+  display: grid; 
+  grid-template-columns: repeat(5, 1fr); /* 5 עמודות שוות */
+  border-top: var(--rule-w) solid var(--rule);
+  margin-top: 56px;
+}
 
+.hero-meta > div {
+  padding: 18px var(--pad);
+  /* קו הפרדה בצד (בדפדפן בעברית זה יהיה בצד שמאל) */
+  border-inline-end: var(--rule-w) solid var(--rule); 
+  text-align: center; /* ממרכז את הטקסט בתוך התא */
+}
+
+/* ביטול הקו באלמנט האחרון */
+.hero-meta > div:last-child {
+  border-inline-end: 0;
+}
+
+/* עיצוב הכותרת הקטנה (הקטגוריה) */
+.hero-meta .k { 
+  font-family: "JetBrains Mono", sans-serif; 
+  font-size: 12px; 
+  letter-spacing: 0.05em; 
+  text-transform: uppercase; 
+  opacity: 0.65; 
+  margin-bottom: 6px;
+}
+
+/* עיצוב הנתון הגדול */
+.hero-meta .v { 
+  font-family: "Archivo Black", sans-serif; 
+  font-size: 24px; 
+  font-weight: bold;
+}
+  /* כברירת מחדל לניידים: 2 עמודות */
+.hero-meta {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+}
+
+/* למסכים רחבים יותר (מחשבים וטאבלטים): 5 עמודות */
+@media (min-width: 768px) {
+  .hero-meta {
+    grid-template-columns: repeat(5, 1fr);
+  }
+}
   /* hero photo slot */
   .hero-photo {
     position: relative;
