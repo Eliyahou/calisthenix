@@ -156,8 +156,8 @@ function HeroMeta() {
     <div className="hero-meta">
       <div><div className="k">מפגשים</div><div className="v">08</div></div>
       <div><div className="k">משך מפגש</div><div className="v">60ʹ</div></div>
-      <div><div className="k">פעמיים בשבוע</div><div className="v">04wk</div></div>
-      <div><div className="k">קבוצה</div><div className="v">עד 6</div></div>
+      <div><div className="k">פעמיים בשבוע</div><div className="v">שעות הערב</div></div>
+      <div><div className="k">קבוצה</div><div className="v">10</div></div>
     </div>);
 
 }
