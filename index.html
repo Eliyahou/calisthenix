@@ -345,6 +345,7 @@
     .hero-meta {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
+      /* 4 עמודות שוות לשורה הראשונה */
       border-top: var(--rule-w) solid var(--rule);
       margin-top: 56px;
     }
@@ -353,27 +354,23 @@
       padding: 18px var(--pad);
       border-inline-end: var(--rule-w) solid var(--rule);
       border-bottom: var(--rule-w) solid var(--rule);
-      /* השורה החדשה שהתווספה */
+      /* קו תחתון לשורה הראשונה */
     }
 
+    /* איחוד של כל ההגדרות לילד האחרון */
     .hero-meta>div:last-child {
-      border-inline-end: 0;
-    }
-
-    .hero-meta>div:last-child {
-      grid-column: span 5;
-      /* מותח את התא על פני כל 5 העמודות */
+      grid-column: span 4;
+      /* מותח את "קבוצה" על פני כל 4 העמודות של השורה מעליו */
       text-align: center;
-      /* ממרכז את הטקסט בתוך התא */
+      /* ממרכז את הטקסט לחלוטין */
       border-inline-end: 0;
-      /* מבטל לחלוטין קו אנכי (כבר קיים אצלך, אבל לביטחון) */
-      padding-top: 12px;
-      /* אופציונלי: מוסיף קצת מרווח מלמעלה כדי להפריד מהשורה הראשונה */
+      /* מוחק את הקו האנכי בצד */
+      border-bottom: 0;
+      /* אופציונלי: מוחק את הקו התחתון לשורה האחרונה (אם תרצה) */
+      padding-top: 24px;
+      /* מרווח נעים מהקו שמעליו */
     }
 
-    .hero-meta>div:last-child {
-      border-inline-end: 0;
-    }
 
     .hero-meta .k {
       font-family: "JetBrains Mono";
