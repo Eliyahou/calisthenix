@@ -401,12 +401,13 @@ function BitPay({ onClose }) {
         </div>
         <div className="pc-actions">
           <button className="btn btn--accent" onClick={openBit}>
-            פתח את אפליקציית ביט <span className="arrow">→</span>
+            {P.bitLink ? "המשך לאישור בביט" : "פתח את אפליקציית ביט"} <span className="arrow">→</span>
           </button>
         </div>
         <div className="pc-note">
-          פתחו את ביט → "העברת כסף" → הזינו את המספר {P.payeePhone} וסכום של {P.amountLabel}.
-          הכסף מועבר ישירות לחשבון של משה.
+          {P.bitLink ?
+          `ביט ייפתח עם ${P.amountLabel} והנמען (${P.payeeName}) כבר מולאו — נשאר רק לאשר.` :
+          `פתחו את ביט ← "העברת כסף" ← הזינו את המספר ${P.payeePhone} וסכום של ${P.amountLabel}. הכסף מועבר ישירות לחשבון של משה.`}
         </div>
       </div>
     </div>);
