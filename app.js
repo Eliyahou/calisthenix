@@ -480,7 +480,6 @@ function Contact() {
           </h2>
           <div className="row"><div className="k">WHATSAPP</div><div className="v">050-316-1126</div></div>
           <div className="row"><div className="k">EMAIL</div><div className="v">moshelevy1129@gmail.com</div></div>
-          <div className="row"><div className="k">INSTAGRAM</div><div className="v">@moshe.calisthenics</div></div>
           <div className="row"><div className="k">מיקום</div><div className="v">פארק / מתקן שכונתי</div></div>
           <div className="row"><div className="k">מחזור הבא</div><div className="v">יוני 2026 · הרשמה פתוחה</div></div>
         </div>
