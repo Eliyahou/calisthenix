@@ -247,7 +247,7 @@ function Programs() {
       <div className="course-cta rule-b">
         <div className="lead">
           הקורס המלא — מהיסוד ועד התרגילים המתקדמים.
-          <small>קבוצה קטנה · עד 10 מתאמנים · יחס אישי לכל אחד</small>
+          <small>קבוצה קטנה · עד 6 מתאמנים · יחס אישי לכל אחד</small>
         </div>
         <a href="#contact" className="btn btn--accent">הרשמה לקורס <span className="arrow">→</span></a>
       </div>
@@ -261,24 +261,33 @@ function About() {
   React.useEffect(() => {
     const v = vidRef.current;
     if (!v) return;
-    v.volume = 1;
-    // try to play with sound; if the browser blocks it, play muted and
-    // unmute on the first user interaction so audio is on while it plays
-    v.muted = false;
-    v.play().catch(() => {
-      v.muted = true;
+    // iOS only inline-autoplays a video it considers muted at load — React's
+    // `muted` prop doesn't reliably set the HTML attribute, so force it here,
+    // plus the webkit inline flag, then attempt play on load and on canplay.
+    v.muted = true;
+    v.defaultMuted = true;
+    v.setAttribute("muted", "");
+    v.setAttribute("playsinline", "");
+    v.setAttribute("webkit-playsinline", "");
+    const tryPlay = () => { const p = v.play(); if (p && p.catch) p.catch(() => {}); };
+    tryPlay();
+    v.addEventListener("canplay", tryPlay, { once: true });
+    v.addEventListener("loadeddata", tryPlay, { once: true });
+    const unmute = () => {
+      v.muted = false;
+      v.volume = 1;
       v.play().catch(() => {});
-      const unmute = () => {
-        v.muted = false;
-        v.play().catch(() => {});
-        window.removeEventListener("pointerdown", unmute);
-        window.removeEventListener("keydown", unmute);
-        window.removeEventListener("touchstart", unmute);
-      };
-      window.addEventListener("pointerdown", unmute);
-      window.addEventListener("keydown", unmute);
-      window.addEventListener("touchstart", unmute);
-    });
+      cleanup();
+    };
+    function cleanup() {
+      window.removeEventListener("pointerdown", unmute);
+      window.removeEventListener("touchstart", unmute);
+      window.removeEventListener("keydown", unmute);
+    }
+    window.addEventListener("pointerdown", unmute);
+    window.addEventListener("touchstart", unmute);
+    window.addEventListener("keydown", unmute);
+    return cleanup;
   }, []);
   return (
     <section id="about">
@@ -286,7 +295,9 @@ function About() {
       <div className="about">
         <div className="photo-wrap">
           <div className="photo">
-            <video ref={vidRef} className="media-fill" src="moshe-video-1.mp4" autoPlay loop playsInline></video>
+            <video ref={vidRef} className="media-fill" poster="moshe.jpeg" autoPlay muted loop playsInline webkit-playsinline="true" preload="auto">
+              <source src="moshe-video-1.mp4" type="video/mp4" />
+            </video>
           </div>
         </div>
         <div className="body">
@@ -436,6 +447,7 @@ function Contact() {
           </h2>
           <div className="row"><div className="k">WHATSAPP</div><div className="v">050-316-1126</div></div>
           <div className="row"><div className="k">EMAIL</div><div className="v">moshelevy1129@gmail.com</div></div>
+          <div className="row"><div className="k">INSTAGRAM</div><div className="v">@moshe.calisthenics</div></div>
           <div className="row"><div className="k">מיקום</div><div className="v">פארק / מתקן שכונתי</div></div>
           <div className="row"><div className="k">מחזור הבא</div><div className="v">יוני 2026 · הרשמה פתוחה</div></div>
         </div>
