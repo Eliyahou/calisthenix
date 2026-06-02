@@ -2,38 +2,36 @@
 const { useState, useEffect, useMemo } = React;
 
 const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
-  "accent": "#F2A07B",
-  "theme": "sky",
+  "accent": "#FFFFFF",
+  "theme": "forest",
   "texture": "grain",
   "density": "airy",
   "heroVariant": "split",
   "fontPair": "heebo-archivo"
 } /*EDITMODE-END*/;
 
-// full-site background themes (sheet + ink + frame) — warm pastels
+// full-site background themes (sheet + ink + frame)
 const THEMES = {
-  sky: { label: "תכלת (Sky)", paper: "#EFF4FC", ink: "#2F3C4F", backdrop: "#D2E0F1", dark: false },
-  mist: { label: "ערפל כחול (Mist)", paper: "#F1F5F9", ink: "#33414F", backdrop: "#DAE4EC", dark: false },
-  peach: { label: "אפרסק (Peach)", paper: "#FCF1E7", ink: "#4A3528", backdrop: "#E9D3BD", dark: false },
-  blush: { label: "ורוד עדין (Blush)", paper: "#FBEDE8", ink: "#4A322D", backdrop: "#ECD2C9", dark: false },
-  cream: { label: "שמנת (Cream)", paper: "#FBF4E9", ink: "#463829", backdrop: "#EBDCC4", dark: false },
-  apricot: { label: "משמש (Apricot)", paper: "#FDEFDC", ink: "#4B3722", backdrop: "#EED4B2", dark: false },
-  sand: { label: "חול חם (Warm Sand)", paper: "#F4E5D1", ink: "#3E2D1D", backdrop: "#E1CBAD", dark: false },
-  rose: { label: "ורד מעושן (Dusty Rose)", paper: "#F8E7E2", ink: "#4A2E2A", backdrop: "#E8CCC5", dark: false },
-  cocoa: { label: "קקאו (Warm Dark)", paper: "#2E241C", ink: "#F4E7D7", backdrop: "#1B130D", dark: true }
+  bone: { label: "בז׳ (Bone)", paper: "#ECEAE2", ink: "#0E0E0C", backdrop: "#17160F", dark: false },
+  white: { label: "לבן נקי (White)", paper: "#F7F5F0", ink: "#0E0E0C", backdrop: "#1A1A17", dark: false },
+  sand: { label: "חול (Sand)", paper: "#E6DAC4", ink: "#1B1408", backdrop: "#1B1408", dark: false },
+  concrete: { label: "בטון (Concrete)", paper: "#D8D9D4", ink: "#15160F", backdrop: "#15160F", dark: false },
+  ink: { label: "דיו (Ink)", paper: "#0E0E0C", ink: "#ECEAE2", backdrop: "#000000", dark: true },
+  blueprint: { label: "בלופרינט (Blueprint)", paper: "#0F1A2B", ink: "#DCE7FA", backdrop: "#060B14", dark: true },
+  forest: { label: "זית (Olive)", paper: "#1A1F12", ink: "#E8EBD8", backdrop: "#0C0F08", dark: true }
 };
 
 const ACCENTS = [
-"#F2A07B", // peach coral
-"#F6B8A0", // blush peach
-"#EBB179", // apricot
-"#F1BFBF", // rose pastel
-"#E7C79C", // warm sand
-"#D9A085", // clay
-"#F0CB9E", // light apricot
-"#E4AEB3", // dusty rose
-"#EFD7A2", // butter
-"#FBF4E9" // warm white
+"#D6FF3F", // sulfur lime
+"#C6FF00", // acid green
+"#FF5A1F", // hazard orange
+"#FF3D6E", // alert pink
+"#FF2D2D", // signal red
+"#2D5BFF", // signal blue
+"#00E0C7", // cyan
+"#B388FF", // violet
+"#FF8A00", // amber
+"#FFFFFF" // paper white
 ];
 
 // choose legible ink (black/white) against any accent via luminance
@@ -66,6 +64,7 @@ function Nav() {
     <nav className="nav rule-b">
       <div className="nav-left">
         <a href="#course" className="nav-link">הקורס</a>
+        <a href="#skills" className="nav-link">מיומנויות</a>
         <a href="#about" className="nav-link">משה</a>
         <a href="#pricing" className="nav-link">מחיר</a>
       </div>
@@ -75,7 +74,7 @@ function Nav() {
           <span className="live-dot" />
           הרשמה פתוחה · קורס יוני 26
         </span>
-        <a href="#contact" className="btn btn--accent" style={{ padding: "10px 16px", fontSize: 12 }} data-comment-anchor="3f17df5c02-a-65-9">
+        <a href="#contact" className="btn btn--fill" style={{ padding: "10px 16px", fontSize: 12, color: "rgb(255, 255, 255)", backgroundColor: "rgb(160, 175, 82)" }} data-comment-anchor="3f17df5c02-a-65-9">
           הרשמה לקורס <span className="arrow">→</span>
         </a>
       </div>
@@ -132,7 +131,7 @@ function Hero({ variant }) {
         display: "flex", flexDirection: "column", gap: "var(--pad)"
       }}>
         <div className="hero-photo">
-          <img className="media-fill" src="moshe.jpeg" alt="עמידת ידיים במדבר" />
+          <img className="media-fill" src="uploads/moshe.jpeg" alt="עמידת ידיים במדבר" />
         </div>
         <div style={{ borderTop: "var(--rule-w) solid var(--rule)", paddingTop: 16 }}>
           <div className="mono" style={{ fontSize: 10, letterSpacing: "0.2em", opacity: 0.6, textTransform: "uppercase" }}>
@@ -154,28 +153,28 @@ function Hero({ variant }) {
 }
 function HeroMeta() {
   return (
-    <div className="hero-meta">
-  <div className="item">
-    <div className="k">מפגשים</div>
-    <div className="v">08</div>
+    <div class="hero-meta">
+  <div class="item">
+    <div class="k">מפגשים</div>
+    <div class="v">08</div>
   </div>
-  <div className="item">
-    <div className="k">משך מפגש</div>
-    <div className="v">60'</div>
-  </div>
-  
-  <div className="item">
-    <div className="k">פעמיים בשבוע</div>
-    <div className="v">בערב</div>
-  </div>
-  <div className="item">
-    <div className="k">גילאים</div>
-    <div className="v">13 - 16</div>
+  <div class="item">
+    <div class="k">משך מפגש</div>
+    <div class="v">60'</div>
   </div>
   
-  <div className="item full-width">
-    <div className="k">קבוצה</div>
-    <div className="v">עד 10</div>
+  <div class="item">
+    <div class="k">פעמיים בשבוע</div>
+    <div class="v">בערב</div>
+  </div>
+  <div class="item">
+    <div class="k">גילאים</div>
+    <div class="v">13 - 16</div>
+  </div>
+  
+  <div class="item full-width">
+    <div class="k">קבוצה</div>
+    <div class="v">עד 10</div>
   </div>
 </div>);
 
@@ -198,7 +197,7 @@ function Marquee() {
 function SkillTree() {
   return (
     <section id="skills">
-      <Strip num="02" title="עץ המיומנויות" en="SKILL TREE" meta="פרוגרסיה הדרגתית · 4 מסלולים · 32 שלבים" />
+      <Strip num="02" title="עץ המיומנויות" en="SKILL TREE" meta="פרוגרסיה הדרגתית · 5 מסלולים · 40 שלבים" />
       <div className="tree-grid">
         {window.SKILL_TREE.map((col) =>
         <div className="tree-col" key={col.cat}>
@@ -232,7 +231,7 @@ function SkillTree() {
 function Programs() {
   return (
     <section id="course">
-      <Strip num="02" title="מבנה הקורס" en="COURSE" meta="8 מפגשים · 4 שבועות · 60 דקʳ למפגש" />
+      <Strip num="03" title="מבנה הקורס" en="COURSE" meta="8 מפגשים · 4 שבועות · 60 דקʳ למפגש" />
       <div className="course-grid">
         {window.COURSE.map((s) =>
         <div className="course-cell" key={s.num}>
@@ -257,74 +256,17 @@ function Programs() {
 
 /* ───────── About ───────── */
 function About() {
-  const vidRef = React.useRef(null);
-  const [needsTap, setNeedsTap] = useState(false);
-  React.useEffect(() => {
-    const v = vidRef.current;
-    if (!v) return;
-    // iOS only inline-autoplays a video it considers muted at load — React's
-    // `muted` prop doesn't reliably set the HTML attribute, so force it here,
-    // plus the webkit inline flag, then attempt play on load and on canplay.
-    v.muted = true;
-    v.defaultMuted = true;
-    v.setAttribute("muted", "");
-    v.setAttribute("playsinline", "");
-    v.setAttribute("webkit-playsinline", "");
-    const tryPlay = () => {
-      const p = v.play();
-      if (p && p.then) p.then(() => setNeedsTap(false)).catch(() => setNeedsTap(true));
-    };
-    tryPlay();
-    v.addEventListener("canplay", tryPlay, { once: true });
-    v.addEventListener("loadeddata", tryPlay, { once: true });
-    // some phones (Low Power / data-saver) silently refuse muted autoplay —
-    // if still paused after a beat, surface a tap-to-play button
-    const t = setTimeout(() => { if (v.paused) setNeedsTap(true); }, 1400);
-    const unmute = () => {
-      if (v.paused) v.play().catch(() => {});
-      v.muted = false;
-      v.volume = 1;
-      cleanup();
-    };
-    function cleanup() {
-      window.removeEventListener("pointerdown", unmute);
-      window.removeEventListener("touchstart", unmute);
-      window.removeEventListener("keydown", unmute);
-    }
-    window.addEventListener("pointerdown", unmute);
-    window.addEventListener("touchstart", unmute);
-    window.addEventListener("keydown", unmute);
-    return () => { clearTimeout(t); cleanup(); };
-  }, []);
-  const handleTapPlay = () => {
-    const v = vidRef.current;
-    if (!v) return;
-    v.muted = false;
-    v.volume = 1;
-    v.play().then(() => setNeedsTap(false)).catch(() => {
-      v.muted = true;
-      v.play().then(() => setNeedsTap(false)).catch(() => {});
-    });
-  };
   return (
     <section id="about">
-      <Strip num="03" title="משה" en="THE COACH" meta="בן 17 · קליסטניקס · אתלט צעיר" />
+      <Strip num="04" title="משה" en="THE COACH" meta="בן 17 · קליסטניקס · אתלט צעיר" />
       <div className="about">
         <div className="photo-wrap">
           <div className="photo">
-            <video ref={vidRef} className="media-fill" poster="moshe.jpeg" autoPlay muted loop playsInline webkit-playsinline="true" preload="auto">
-              <source src="moshe-video-1.mp4" type="video/mp4" />
-            </video>
-            {needsTap &&
-            <button className="play-ov" onClick={handleTapPlay} aria-label="הפעל סרטון">
-              <span className="play-ic">▶</span>
-              <span className="play-tx">הפעל סרטון</span>
-            </button>
-            }
+            <video className="media-fill" src="uploads/moshe-video-1.mp4" autoPlay muted loop playsInline></video>
           </div>
         </div>
         <div className="body">
-          <div className="eyebrow" style={{ marginBottom: 12 }}>היכרות / 03 · 01</div>
+          <div className="eyebrow" style={{ marginBottom: 12 }}>היכרות / 04 · 01</div>
           <h2>
             בן 17.<br />
             כבר שם למעלה.
@@ -344,87 +286,11 @@ function About() {
 
 }
 
-/* ───────── Bit payment modal ───────── */
-function BitPay({ onClose }) {
-  const P = window.PAYMENT;
-  const [copied, setCopied] = useState(null);
-  const copy = (text, key) => {
-    const done = () => { setCopied(key); setTimeout(() => setCopied(null), 1600); };
-    if (navigator.clipboard && navigator.clipboard.writeText) {
-      navigator.clipboard.writeText(text).then(done).catch(done);
-    } else { done(); }
-  };
-  const openBit = () => {
-    // if Moshe pasted his personal bit payment link, open it directly —
-    // it carries his account + amount so bit opens ready to pay
-    if (P.bitLink) { window.open(P.bitLink, "_blank", "noopener"); return; }
-    const ua = navigator.userAgent || "";
-    const isIOS = /iPad|iPhone|iPod/.test(ua);
-    const url = isIOS ?
-      "https://apps.apple.com/il/app/bit/id1206843063" :
-      "https://play.google.com/store/apps/details?id=com.bnhp.payments.paymentsapp";
-    window.open(url, "_blank", "noopener");
-  };
-  useEffect(() => {
-    const onKey = (e) => { if (e.key === "Escape") onClose(); };
-    window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
-  }, [onClose]);
-  return (
-    <div className="paywrap" onClick={onClose}>
-      <div className="paycard" dir="rtl" onClick={(e) => e.stopPropagation()}>
-        <div className="pc-hd">
-          <span className="t">תשלום בביט · BIT</span>
-          <button className="pc-x" aria-label="סגור" onClick={onClose}>✕</button>
-        </div>
-        <div className="pc-amt">
-          <div className="n">{P.amountLabel}</div>
-          <div className="c">קורס קליסטניקס מלא · 8 מפגשים</div>
-        </div>
-        <div className="pc-row">
-          <div>
-            <div className="k">סכום לתשלום</div>
-            <div className="v">{P.amountLabel}</div>
-          </div>
-          <button className="pc-copy" onClick={() => copy(String(P.amount), "amt")}>
-            {copied === "amt" ? "הועתק ✓" : "העתק סכום"}
-          </button>
-        </div>
-        <div className="pc-row">
-          <div>
-            <div className="k">מקבל התשלום</div>
-            <div className="v">{P.payeeName} · {P.payeePhone}</div>
-          </div>
-          <button className="pc-copy" onClick={() => copy(P.payeePhone, "phone")}>
-            {copied === "phone" ? "הועתק ✓" : "העתק מספר"}
-          </button>
-        </div>
-        <div className="pc-actions">
-          <button className="btn btn--accent" onClick={openBit}>
-            פתח את אפליקציית ביט <span className="arrow">→</span>
-          </button>
-        </div>
-        <div className="pc-note">
-          פתחו את ביט → "העברת כסף" → הזינו את המספר {P.payeePhone} וסכום של {P.amountLabel}.
-          הכסף מועבר ישירות לחשבון של משה.
-        </div>
-      </div>
-    </div>);
-
-}
-
 /* ───────── Pricing ───────── */
 function Pricing() {
-  const [payOpen, setPayOpen] = useState(false);
-  const startPay = () => {
-    const P = window.PAYMENT;
-    // automatic hosted checkout when available, else the bit instructions modal
-    if (P.checkoutLink) { window.open(P.checkoutLink, "_blank", "noopener"); return; }
-    setPayOpen(true);
-  };
   return (
     <section id="pricing">
-      <Strip num="04" title="מחיר הקורס" en="PRICING" meta="₪ · שקלים · תשלום אחד" />
+      <Strip num="05" title="מחיר הקורס" en="PRICING" meta="₪ · שקלים · כולל הכל" />
       <div className="pricing-wrap" style={{ padding: 0 }}>
         <table className="pricing-table">
           <thead>
@@ -449,17 +315,10 @@ function Pricing() {
             )}
           </tbody>
         </table>
-      </div>
-      <div className="pay-cta rule-b">
-        <div className="lead">
-          מוכנים להתחיל?
-          <small>תשלום מאובטח · ביט / אשראי · קבלה אוטומטית</small>
+        <div className="pricing-note">
+          * הרשמה מוקדמת מוגבלת ל-3 הראשונים · תשלום בביט / אשראי / מזומן · אפשר לפרוס לתשלומים
         </div>
-        <button className="btn btn--accent" onClick={startPay}>
-          תשלום מאובטח · {window.PAYMENT.amountLabel} <span className="arrow">→</span>
-        </button>
       </div>
-      {payOpen && <BitPay onClose={() => setPayOpen(false)} />}
     </section>);
 
 }
@@ -469,7 +328,7 @@ function Contact() {
   const [sent, setSent] = useState(false);
   return (
     <section id="contact">
-      <Strip num="05" title="צור קשר" en="GET IN TOUCH" meta="תגובה תוך 24 שעות" />
+      <Strip num="06" title="צור קשר" en="GET IN TOUCH" meta="תגובה תוך 24 שעות" />
       <div className="contact">
         <div className="info">
           <div className="eyebrow" style={{ marginBottom: 24 }}>הרשמה לקורס / שאלות</div>
@@ -477,8 +336,8 @@ function Contact() {
             דבר<br />
             עם משה.
           </h2>
-          <div className="row"><div className="k">WHATSAPP</div><div className="v">050-316-1126</div></div>
-          <div className="row"><div className="k">EMAIL</div><div className="v">moshelevy1129@gmail.com</div></div>
+          <div className="row"><div className="k">WHATSAPP</div><div className="v">050-000-0000</div></div>
+          <div className="row"><div className="k">EMAIL</div><div className="v">moshe@calistenix.com</div></div>
           <div className="row"><div className="k">INSTAGRAM</div><div className="v">@moshe.calisthenics</div></div>
           <div className="row"><div className="k">מיקום</div><div className="v">פארק / מתקן שכונתי</div></div>
           <div className="row"><div className="k">מחזור הבא</div><div className="v">יוני 2026 · הרשמה פתוחה</div></div>
@@ -489,7 +348,7 @@ function Contact() {
               <div className="submitted">
                 <span style={{ fontFamily: "Archivo Black", fontSize: 22 }}>✓</span>
                 <div>
-                  כמעט סיימת — פתחנו לך את תוכנת המייל עם כל הפרטים. רק ללחוץ "שלח" והפנייה תגיע ישירות למשה.
+                  ההודעה נשלחה. אחזור אליך תוך 24 שעות.
                   <div className="mono" style={{ fontSize: 11, opacity: 0.7, marginTop: 4 }}>REF-{Math.floor(Math.random() * 900000 + 100000)}</div>
                 </div>
               </div>
@@ -498,44 +357,40 @@ function Contact() {
               </button>
             </div> :
 
-          <form className="form" onSubmit={(e) => {
-            e.preventDefault();
-            const f = new FormData(e.target);
-            const subject = `הרשמה לקורס קליסטניקס — ${f.get("name") || ""}`;
-            const body = [
-              `שם: ${f.get("name") || ""}`,
-              `גיל: ${f.get("age") || ""}`,
-              `אימייל: ${f.get("email") || ""}`,
-              `טלפון: ${f.get("phone") || ""}`,
-              `רמת ניסיון: ${f.get("level") || ""}`,
-              ``,
-              `מטרה / שאלה:`,
-              `${f.get("goal") || ""}`
-            ].join("\n");
-            window.location.href = `mailto:moshelevy1129@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-            setSent(true);
-          }}>
+          <form className="form" onSubmit={(e) => {e.preventDefault();setSent(true);}}>
               <div className="row">
-                <div className="field"><label>שם מלא</label><input name="name" required type="text" placeholder="ישראל ישראלי" /></div>
-                <div className="field"><label>גיל</label><input name="age" type="number" placeholder="14" /></div>
+                <div className="field"><label>שם מלא</label><input required type="text" placeholder="ישראל ישראלי" /></div>
+                <div className="field"><label>גיל</label><input type="number" placeholder="28" /></div>
               </div>
               <div className="row">
-                <div className="field"><label>אימייל</label><input name="email" required type="email" placeholder="you@example.com" /></div>
-                <div className="field"><label>טלפון</label><input name="phone" type="tel" placeholder="050-000-0000" /></div>
+                <div className="field"><label>אימייל</label><input required type="email" placeholder="you@example.com" /></div>
+                <div className="field"><label>טלפון</label><input type="tel" placeholder="050-000-0000" /></div>
               </div>
-              <div className="field">
-                <label>רמת ניסיון</label>
-                <select name="level" defaultValue="">
-                  <option value="" disabled>בחר רמה</option>
-                  <option>מתחיל לחלוטין</option>
-                  <option>מתאמן בסיסי</option>
-                  <option>מתקדם</option>
-                  <option>ספורטאי</option>
-                </select>
+              <div className="row">
+                <div className="field">
+                  <label>רמת ניסיון</label>
+                  <select defaultValue="">
+                    <option value="" disabled>בחר רמה</option>
+                    <option>מתחיל לחלוטין</option>
+                    <option>מתאמן בסיסי</option>
+                    <option>מתקדם</option>
+                    <option>ספורטאי</option>
+                  </select>
+                </div>
+                <div className="field">
+                  <label>מסלול מועדף</label>
+                  <select defaultValue="">
+                    <option value="" disabled>בחר מסלול</option>
+                    <option>הרשמה מוקדמת — ₪590</option>
+                    <option>קורס מלא — ₪690</option>
+                    <option>הרשמה בזוג</option>
+                    <option>מפגש ניסיון — ₪90</option>
+                  </select>
+                </div>
               </div>
               <div className="field">
                 <label>מטרה / שאלה</label>
-                <textarea name="goal" placeholder="ספר לי קצת עליך — מה תרצה להשיג בקורס?"></textarea>
+                <textarea placeholder="ספר לי קצת עליך — מה תרצה להשיג בקורס?"></textarea>
               </div>
               <div className="form-actions">
                 <span className="legal">בלחיצה אני מאשר/ת קבלת פנייה חוזרת</span>
@@ -609,6 +464,7 @@ function App() {
         <Nav />
         <Hero variant={t.heroVariant} />
         <Marquee />
+        <SkillTree />
         <Programs />
         <About />
         <Pricing />
