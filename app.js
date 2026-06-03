@@ -449,18 +449,32 @@ function BitPay({onClose}) {
         }
     };
     const openBit = () => {
-        // if Moshe pasted his personal bit payment link, open it directly —
-        // it carries his account + amount so bit opens ready to pay
+        // 1. אם משה סיפק קישור אישי מלא, נשתמש בו ישירות
         if (P.bitLink) {
             window.open(P.bitLink, "_blank", "noopener");
             return;
         }
-        const ua = navigator.userAgent || "";
-        const isIOS = /iPad|iPhone|iPod/.test(ua);
-        const url = isIOS
-            ? "https://apps.apple.com/il/app/bit/id1206843063"
-            : "https://play.google.com/store/apps/details?id=com.bnhp.payments.paymentsapp";
-        window.open(url, "_blank", "noopener");
+
+        // 2. יצירת Deep Link דינמי עם המספר והסכום של משה
+        // חשוב לוודא שהטלפון מורכב רק מספרים (ללא מקפים) והסכום הוא מספר נקי
+        const cleanPhone = String(P.payeePhone).replace(/[-\s]/g, "");
+        const amount = P.amount;
+
+        const bitDeepLink = `bitpay://pay?phone=${cleanPhone}&amount=${amount}`;
+
+        // 3. ניסיון לפתוח את האפליקציה ישירות
+        window.location.href = bitDeepLink;
+
+        // 4. גיבוי: אם האפליקציה לא מותקנת, נעביר לחנות אחרי השהייה קלה
+        setTimeout(() => {
+            const ua = navigator.userAgent || "";
+            const isIOS = /iPad|iPhone|iPod/.test(ua);
+            const fallbackUrl = isIOS
+                ? "https://apps.apple.com/il/app/bit/id1206843063"
+                : "https://play.google.com/store/apps/details?id=com.bnhp.payments.paymentsapp";
+
+            window.open(fallbackUrl, "_blank", "noopener");
+        }, 1500);
     };
     useEffect(() => {
         const onKey = (e) => {
@@ -637,27 +651,32 @@ function Contact() {
                             </button>
                         </div>
                     ) : (
-                       <form
-  className="form"
-  onSubmit={(e) => {
-    e.preventDefault();
-    const f = new FormData(e.target);
-    const subject = `הרשמה לקורס קליסטניקס - ${f.get("name") || ""}`;
-    const body = [
-      `שם: ${f.get("name") || ""}`,
-      `גיל: ${f.get("age") || ""}`,
-      `אימייל: ${f.get("email") || ""}`,
-      `טלפון: ${f.get("phone") || ""}`,
-      `רמת ניסיון: ${f.get("level") || ""}`,
-      `,`,
-      `:מטרה / שאלה`,
-      `${f.get("goal") || ""}`,
-    ].join("\n");
-    window.open(`https://mail.google.com/mail/?view=cm&fs=1&to=moshelevy1129@gmail.com&su=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`, '_blank');
-   
-    setSent(true);
-  }}
->
+                        <form
+                            className="form"
+                            onSubmit={(e) => {
+                                e.preventDefault();
+                                const f = new FormData(e.target);
+                                const subject = `הרשמה לקורס קליסטניקס - ${f.get("name") || ""}`;
+                                const body = [
+                                    `שם: ${f.get("name") || ""}`,
+                                    `גיל: ${f.get("age") || ""}`,
+                                    `אימייל: ${f.get("email") || ""}`,
+                                    `טלפון: ${f.get("phone") || ""}`,
+                                    `רמת ניסיון: ${f.get("level") || ""}`,
+                                    `,`,
+                                    `:מטרה / שאלה`,
+                                    `${f.get("goal") || ""}`,
+                                ].join("\n");
+                                window.open(
+                                    `https://mail.google.com/mail/?view=cm&fs=1&to=moshelevy1129@gmail.com&su=${encodeURIComponent(
+                                        subject
+                                    )}&body=${encodeURIComponent(body)}`,
+                                    "_blank"
+                                );
+
+                                setSent(true);
+                            }}
+                        >
                             <div className="row">
                                 <div className="field">
                                     <label>שם מלא</label>
