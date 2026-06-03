@@ -437,6 +437,7 @@ function About() {
 function BitPay({onClose}) {
     const P = window.PAYMENT;
     const [copied, setCopied] = useState(null);
+
     const copy = (text, key) => {
         const done = () => {
             setCopied(key);
@@ -448,45 +449,36 @@ function BitPay({onClose}) {
             done();
         }
     };
+
     const openBit = () => {
+        // אם משה סיפק קישור בקשת תשלום רשמי מביט - זה יעבוד מושלם
         if (P.bitLink) {
             window.open(P.bitLink, "_blank", "noopener");
             return;
         }
 
-        const cleanPhone = String(P.payeePhone).replace(/[^0-9]/g, ""); // משאיר רק מספרים, מוריד פלוסים ומקפים
-        const amount = parseFloat(P.amount); // מבטיח שזה מספר נקי
-
-        if (!cleanPhone || isNaN(amount)) {
-            console.error("פרטי תשלום חסרים או שגויים");
-            return;
+        // גיבוי: אם אין קישור אישי, פותחים את האפליקציה (או החנות) והמשתמש יעתיק ידנית
+        const ua = navigator.userAgent || "";
+        const isIOS = /iPad|iPhone|iPod/.test(ua);
+        
+        // בנייד, ננסה לפתוח קודם כל את האפליקציה עצמה בצורה נקייה
+        if (/Android|iPhone|iPad|iPod/i.test(ua)) {
+            window.location.href = "bitpay://"; // פותח את האפליקציה עצמה
+            
+            // אם אחרי 2 שניות היא לא נפתחה, כנראה היא לא מותקנת - נעביר לחנות
+            setTimeout(() => {
+                if (document.hidden || document.webkitHidden) return;
+                const fallbackUrl = isIOS
+                    ? "https://apps.apple.com/il/app/bit/id1206843063"
+                    : "https://play.google.com/store/apps/details?id=com.bnhp.payments.paymentsapp";
+                window.open(fallbackUrl, "_blank", "noopener");
+            }, 2000);
+        } else {
+            // אם המשתמש במחשב, נשלח אותו ישירות לאתר ביט / הסבר
+            window.open("https://www.bitpay.co.il/", "_blank", "noopener");
         }
-
-        const bitDeepLink = `bitpay://pay?phone=${cleanPhone}&amount=${amount}`;
-
-        // יצירת אלמנט קישור פיזי ללחיצה אמינה יותר בניידים
-        const link = document.createElement("a");
-        link.href = bitDeepLink;
-        link.target = "_self";
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-
-        // חנות אפליקציות כגיבוי
-        const fallbackTimeout = setTimeout(() => {
-            if (document.hidden || document.webkitHidden) return;
-
-            const ua = navigator.userAgent || "";
-            const isIOS = /iPad|iPhone|iPod/.test(ua);
-            const fallbackUrl = isIOS
-                ? "https://apps.apple.com/il/app/bit/id1206843063"
-                : "https://play.google.com/store/apps/details?id=com.bnhp.payments.paymentsapp";
-
-            window.open(fallbackUrl, "_blank", "noopener");
-        }, 2000);
-
-        window.addEventListener("pagehide", () => clearTimeout(fallbackTimeout), {once: true});
     };
+
     useEffect(() => {
         const onKey = (e) => {
             if (e.key === "Escape") onClose();
@@ -494,6 +486,7 @@ function BitPay({onClose}) {
         window.addEventListener("keydown", onKey);
         return () => window.removeEventListener("keydown", onKey);
     }, [onClose]);
+
     return (
         <div className="paywrap" onClick={onClose}>
             <div className="paycard" dir="rtl" onClick={(e) => e.stopPropagation()}>
@@ -534,14 +527,13 @@ function BitPay({onClose}) {
                 </div>
                 <div className="pc-note">
                     {P.bitLink
-                        ? `ביט ייפתח עם ${P.amountLabel} והנמען (${P.payeeName}) כבר מולאו — נשאר רק לאשר.`
-                        : `פתחו את ביט ← "העברת כסף" ← הזינו את המספר ${P.payeePhone} וסכום של ${P.amountLabel}. הכסף מועבר ישירות לחשבון של משה.`}
+                        ? `אפליקציית ביט תפתח כעת. הסכום (${P.amountLabel}) והנמען כבר מעודכנים, כל שנותר הוא לאשר את הפעולה.`
+                        : `לחצו על הכפתור לפתיחת ביט. באפליקציה בחרו ב"העברת כסף", והשתמשו בכפתורי ההעתקה למעלה כדי להזין בקלות את המספר והסכום.`}
                 </div>
             </div>
         </div>
     );
 }
-
 /* ───────── Pricing ───────── */
 function Pricing() {
     const [payOpen, setPayOpen] = useState(false);
