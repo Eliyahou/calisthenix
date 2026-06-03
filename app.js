@@ -608,7 +608,7 @@ function Contact() {
                     </div>
                     <div className="row">
                         <div className="k">EMAIL</div>
-                        <div className="v">moshelevy1129@gmail.com</div>
+                        <div className="v">eliyahou.levy@gmail.com</div>
                     </div>
                     <div className="row">
                         <div className="k">מיקום</div>
@@ -637,28 +637,27 @@ function Contact() {
                             </button>
                         </div>
                     ) : (
-                        <form
-                            className="form"
-                            onSubmit={(e) => {
-                                e.preventDefault();
-                                const f = new FormData(e.target);
-                                const subject = `הרשמה לקורס קליסטניקס — ${f.get("name") || ""}`;
-                                const body = [
-                                    `שם: ${f.get("name") || ""}`,
-                                    `גיל: ${f.get("age") || ""}`,
-                                    `אימייל: ${f.get("email") || ""}`,
-                                    `טלפון: ${f.get("phone") || ""}`,
-                                    `רמת ניסיון: ${f.get("level") || ""}`,
-                                    ``,
-                                    `מטרה / שאלה:`,
-                                    `${f.get("goal") || ""}`,
-                                ].join("\n");
-                                window.location.href = `mailto:moshelevy1129@gmail.com?subject=${encodeURIComponent(
-                                    subject
-                                )}&body=${encodeURIComponent(body)}`;
-                                setSent(true);
-                            }}
-                        >
+                       <form
+  className="form"
+  onSubmit={(e) => {
+    e.preventDefault();
+    const f = new FormData(e.target);
+    const subject = `הרשמה לקורס קליסטניקס - ${f.get("name") || ""}`;
+    const body = [
+      `שם: ${f.get("name") || ""}`,
+      `גיל: ${f.get("age") || ""}`,
+      `אימייל: ${f.get("email") || ""}`,
+      `טלפון: ${f.get("phone") || ""}`,
+      `רמת ניסיון: ${f.get("level") || ""}`,
+      `,`,
+      `:מטרה / שאלה`,
+      `${f.get("goal") || ""}`,
+    ].join("\n");
+    window.open(`https://mail.google.com/mail/?view=cm&fs=1&to=moshelevy1129@gmail.com&su=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`, '_blank');
+   
+    setSent(true);
+  }}
+>
                             <div className="row">
                                 <div className="field">
                                     <label>שם מלא</label>
