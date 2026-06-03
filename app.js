@@ -449,24 +449,33 @@ function BitPay({onClose}) {
         }
     };
     const openBit = () => {
-        // 1. אם משה סיפק קישור אישי מלא, נשתמש בו ישירות
         if (P.bitLink) {
             window.open(P.bitLink, "_blank", "noopener");
             return;
         }
 
-        // 2. יצירת Deep Link דינמי עם המספר והסכום של משה
-        // חשוב לוודא שהטלפון מורכב רק מספרים (ללא מקפים) והסכום הוא מספר נקי
-        const cleanPhone = String(P.payeePhone).replace(/[-\s]/g, "");
-        const amount = P.amount;
+        const cleanPhone = String(P.payeePhone).replace(/[^0-9]/g, ""); // משאיר רק מספרים, מוריד פלוסים ומקפים
+        const amount = parseFloat(P.amount); // מבטיח שזה מספר נקי
+
+        if (!cleanPhone || isNaN(amount)) {
+            console.error("פרטי תשלום חסרים או שגויים");
+            return;
+        }
 
         const bitDeepLink = `bitpay://pay?phone=${cleanPhone}&amount=${amount}`;
 
-        // 3. ניסיון לפתוח את האפליקציה ישירות
-        window.location.href = bitDeepLink;
+        // יצירת אלמנט קישור פיזי ללחיצה אמינה יותר בניידים
+        const link = document.createElement("a");
+        link.href = bitDeepLink;
+        link.target = "_self";
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
 
-        // 4. גיבוי: אם האפליקציה לא מותקנת, נעביר לחנות אחרי השהייה קלה
-        setTimeout(() => {
+        // חנות אפליקציות כגיבוי
+        const fallbackTimeout = setTimeout(() => {
+            if (document.hidden || document.webkitHidden) return;
+
             const ua = navigator.userAgent || "";
             const isIOS = /iPad|iPhone|iPod/.test(ua);
             const fallbackUrl = isIOS
@@ -474,7 +483,9 @@ function BitPay({onClose}) {
                 : "https://play.google.com/store/apps/details?id=com.bnhp.payments.paymentsapp";
 
             window.open(fallbackUrl, "_blank", "noopener");
-        }, 1500);
+        }, 2000);
+
+        window.addEventListener("pagehide", () => clearTimeout(fallbackTimeout), {once: true});
     };
     useEffect(() => {
         const onKey = (e) => {
