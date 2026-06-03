@@ -608,7 +608,7 @@ function Contact() {
                     </div>
                     <div className="row">
                         <div className="k">EMAIL</div>
-                        <div className="v">eliyahou.levy@gmail.com</div>
+                        <div className="v">moshelevy1129@gmail.com</div>
                     </div>
                     <div className="row">
                         <div className="k">מיקום</div>
