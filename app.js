@@ -460,11 +460,11 @@ function BitPay({onClose}) {
         // גיבוי: אם אין קישור אישי, פותחים את האפליקציה (או החנות) והמשתמש יעתיק ידנית
         const ua = navigator.userAgent || "";
         const isIOS = /iPad|iPhone|iPod/.test(ua);
-        
+
         // בנייד, ננסה לפתוח קודם כל את האפליקציה עצמה בצורה נקייה
         if (/Android|iPhone|iPad|iPod/i.test(ua)) {
             window.location.href = "bitpay://"; // פותח את האפליקציה עצמה
-            
+
             // אם אחרי 2 שניות היא לא נפתחה, כנראה היא לא מותקנת - נעביר לחנות
             setTimeout(() => {
                 if (document.hidden || document.webkitHidden) return;
@@ -658,6 +658,7 @@ function Contact() {
                             className="form"
                             onSubmit={(e) => {
                                 e.preventDefault();
+                                const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
                                 const f = new FormData(e.target);
                                 const subject = `הרשמה לקורס קליסטניקס - ${f.get("name") || ""}`;
                                 const body = [
@@ -670,12 +671,27 @@ function Contact() {
                                     `:מטרה / שאלה`,
                                     `${f.get("goal") || ""}`,
                                 ].join("\n");
-                                window.open(
-                                    `https://mail.google.com/mail/?view=cm&fs=1&to=moshelevy1129@gmail.com&su=${encodeURIComponent(
+                                if (isMobile) {
+                                    // קוד מיוחד לניידים - פותח ישירות את אפליקציית Gmail בנייד
+                                    window.location.href = `googlegmail:///co?to=moshelevy1129@gmail.com&subject=${encodeURIComponent(
                                         subject
-                                    )}&body=${encodeURIComponent(body)}`,
-                                    "_blank"
-                                );
+                                    )}&body=${encodeURIComponent(body)}`;
+
+                                    // גיבוי: אם אפליקציית ג'ימייל לא מותקנת (למשל באייפון), נשתמש ב-mailto הרגיל אחרי חצי שנייה
+                                    setTimeout(() => {
+                                        window.location.href = `mailto:moshelevy1129@gmail.com?subject=${encodeURIComponent(
+                                            subject
+                                        )}&body=${encodeURIComponent(body)}`;
+                                    }, 500);
+                                } else {
+                                    // קוד למחשבים - פותח את ג'ימייל בדפדפן בטאב חדש
+                                    window.open(
+                                        `https://mail.google.com/mail/?view=cm&fs=1&to=moshelevy1129@gmail.com&su=${encodeURIComponent(
+                                            subject
+                                        )}&body=${encodeURIComponent(body)}`,
+                                        "_blank"
+                                    );
+                                }
 
                                 setSent(true);
                             }}
