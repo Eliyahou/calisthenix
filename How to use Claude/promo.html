@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CALISTENIX — קורס קליסתניקס</title>
+  <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;700;900&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:     #E8EBF2;
+      --navy:   #1B2844;
+      --salmon: #E07B55;
+      --white:  #FFFFFF;
+      --navy2:  #2A3F66;
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Heebo', 'DejaVu Sans', sans-serif;
+      background: var(--bg);
+      color: var(--navy);
+      direction: rtl;
+      min-height: 100vh;
+    }
+
+    /* ── TOP STRIPE ── */
+    .top-stripe {
+      background: var(--navy);
+      height: 56px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .logo {
+      font-size: 1.2rem;
+      font-weight: 900;
+      color: var(--white);
+      letter-spacing: 4px;
+    }
+
+    /* ── HERO: photo RIGHT, text LEFT ── */
+    .hero {
+      display: flex;
+      flex-direction: row; /* RTL: first = right */
+      height: clamp(340px, 52vw, 600px);
+    }
+    .photo-block {
+      width: 48%;
+      overflow: hidden;
+      flex-shrink: 0;
+      background: var(--navy);
+    }
+    .photo-block img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 15%;
+      display: block;
+    }
+    .hero-text {
+      width: 52%;
+      padding: clamp(20px, 5vw, 60px) clamp(16px, 4vw, 50px);
+      display: flex;
+      align-items: center;
+      background: var(--bg);
+    }
+    .h1 {
+      font-size: clamp(3rem, 9vw, 7rem);
+      font-weight: 900;
+      color: var(--navy);
+      line-height: 1.0;
+    }
+    .h1-highlight {
+      display: inline-block;
+      background: var(--salmon);
+      color: var(--white);
+      padding: 2px 10px;
+      line-height: 1.15;
+    }
+    .h1-outline {
+      color: transparent;
+      -webkit-text-stroke: 2px var(--navy);
+    }
+
+    /* ── DIVIDER ── */
+    .divider {
+      height: 1px;
+      background: rgba(27,40,68,0.12);
+      margin: 0 5%;
+    }
+
+    /* ── BODY ── */
+    .body-section {
+      display: flex;
+      flex-direction: row;
+      min-height: 320px;
+    }
+
+    /* Modules */
+    .course-info {
+      width: 55%;
+      padding: clamp(24px, 4vw, 48px) clamp(20px, 5vw, 56px) clamp(24px, 4vw, 48px) clamp(16px, 3vw, 32px);
+      border-left: 1px solid rgba(27,40,68,0.1);
+    }
+    .section-label {
+      font-size: 0.68rem;
+      letter-spacing: 3px;
+      color: var(--salmon);
+      text-transform: uppercase;
+      margin-bottom: 14px;
+    }
+    .course-title {
+      font-size: clamp(1rem, 2.2vw, 1.4rem);
+      font-weight: 900;
+      color: var(--navy);
+      margin-bottom: 20px;
+      line-height: 1.25;
+    }
+    .modules {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .module-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .module-num {
+      min-width: 28px;
+      height: 28px;
+      background: var(--salmon);
+      color: var(--white);
+      font-size: 0.72rem;
+      font-weight: 900;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .module-name {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--navy);
+    }
+    .benefits-row {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-top: 24px;
+    }
+    .benefit-chip {
+      background: rgba(27,40,68,0.08);
+      border: 1px solid rgba(27,40,68,0.18);
+      padding: 5px 14px;
+      font-size: 0.8rem;
+      color: var(--navy);
+      font-weight: 600;
+    }
+
+    /* Sidebar */
+    .sidebar {
+      width: 45%;
+      padding: clamp(24px, 4vw, 48px) clamp(16px, 3vw, 32px) clamp(24px, 4vw, 48px) clamp(20px, 4vw, 48px);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 20px;
+    }
+    .early-bird-box {
+      background: var(--navy);
+      padding: clamp(20px, 3vw, 32px) clamp(16px, 2.5vw, 28px);
+      border-right: 4px solid var(--salmon);
+    }
+    .eb-label {
+      font-size: 0.68rem;
+      letter-spacing: 2px;
+      color: var(--salmon);
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+    .eb-headline {
+      font-size: clamp(1rem, 2vw, 1.25rem);
+      font-weight: 900;
+      color: var(--white);
+      line-height: 1.35;
+      margin-bottom: 16px;
+    }
+    .eb-deadline {
+      display: inline-block;
+      background: var(--salmon);
+      color: var(--white);
+      font-size: 0.85rem;
+      font-weight: 700;
+      padding: 7px 18px;
+    }
+    .cta-box {
+      background: var(--salmon);
+      padding: clamp(18px, 3vw, 28px);
+      text-align: center;
+    }
+    .cta-label {
+      font-size: 0.7rem;
+      color: rgba(255,255,255,0.8);
+      letter-spacing: 1px;
+      margin-bottom: 8px;
+    }
+    .cta-url {
+      font-size: clamp(0.9rem, 1.8vw, 1.15rem);
+      font-weight: 900;
+      color: var(--white);
+      text-decoration: none;
+      display: block;
+      transition: opacity 0.15s;
+    }
+    .cta-url:hover { opacity: 0.85; }
+
+    /* ── BOTTOM BAR ── */
+    .bottom-bar {
+      background: var(--navy);
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 5%;
+    }
+    .bottom-bar span {
+      font-size: 0.7rem;
+      color: rgba(255,255,255,0.4);
+      letter-spacing: 1px;
+    }
+
+    /* Mobile */
+    @media (max-width: 640px) {
+      .hero { flex-direction: column; height: auto; }
+      .photo-block { width: 100%; height: 60vw; }
+      .hero-text { width: 100%; }
+      .body-section { flex-direction: column; }
+      .course-info { width: 100%; border-left: none; border-bottom: 1px solid rgba(27,40,68,0.1); }
+      .sidebar { width: 100%; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="top-stripe">
+  <div class="logo">CALISTENIX</div>
+</div>
+
+<div class="hero">
+  <div class="photo-block">
+    <img src="hero-photo.jpg" alt="handstand" />
+  </div>
+  <div class="hero-text">
+    <div class="h1">
+      כוח.<br/>
+      <span class="h1-outline">שליטה.</span><br/>
+      <span class="h1-highlight">תנועה.</span>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<div class="body-section">
+  <div class="course-info">
+    <div class="section-label">METHOD / פרוטוקול</div>
+    <div class="course-title">פרוגרסיה. טכניקה. עקביות.</div>
+    <div class="modules">
+      <div class="module-row">
+        <div class="module-num">1</div>
+        <div class="module-name">יסודות התנועה</div>
+      </div>
+      <div class="module-row">
+        <div class="module-num">2</div>
+        <div class="module-name">כוח עליון</div>
+      </div>
+      <div class="module-row">
+        <div class="module-num">3</div>
+        <div class="module-name">כוח תחתון</div>
+      </div>
+      <div class="module-row">
+        <div class="module-num">4</div>
+        <div class="module-name">ליבה ויציבות</div>
+      </div>
+      <div class="module-row">
+        <div class="module-num">5–8</div>
+        <div class="module-name">התקדמות ו-Skills</div>
+      </div>
+    </div>
+    <div class="benefits-row">
+      <div class="benefit-chip">ללא ציוד</div>
+      <div class="benefit-chip">מכל מקום</div>
+      <div class="benefit-chip">מתחילים</div>
+      <div class="benefit-chip">8 מפגשים</div>
+    </div>
+  </div>
+
+  <div class="sidebar">
+    <div class="early-bird-box">
+      <div class="eb-label">Early Bird — מחיר מיוחד</div>
+      <div class="eb-headline">נרשם עד ראש חודש תמוז<br/>מקבל הנחה משמעותית</div>
+      <div class="eb-deadline">עד ראש חודש</div>
+    </div>
+    <div class="cta-box">
+      <div class="cta-label">להרשמה ופרטים</div>
+      <a class="cta-url" href="https://calisthenix-seven.vercel.app/" target="_blank">calisthenix-seven.vercel.app</a>
+    </div>
+  </div>
+</div>
+
+<div class="bottom-bar">
+  <span>calisthenix-seven.vercel.app</span>
+  <span>CALISTENIX © 2026</span>
+</div>
+
+</body>
+</html>

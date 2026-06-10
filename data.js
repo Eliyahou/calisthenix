@@ -85,7 +85,7 @@ window.COURSE_INFO = {
 };
 
 window.PRICING_ROWS = [
-  { he: "קורס מלא",       en: "Full course",  note: "8 מפגשים · חודש · כולל הכל",   price: "₪720",   per: "₪90/מפגש", hi: true },
+  { he: "קורס מלא",       en: "Full course",  note: "8 מפגשים · חודש · כולל הכל",   special: "הנחה לנרשמים עד ראש חודש תמוז 16/06 👏", hi: true },
 ];
 
 window.PAYMENT = {

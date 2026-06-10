@@ -73,6 +73,9 @@ function Nav() {
                 <a href="#about" className="nav-link">
                     משה
                 </a>
+                <a href="#pricing" className="nav-link">
+                    מחיר מיוחד למזדרזים 👍
+                </a>
             </div>
             <div className="nav-mark">CALISTENIX</div>
             <div className="nav-right">
@@ -532,73 +535,62 @@ function BitPay({onClose}) {
     );
 }
 /* ───────── Pricing ───────── */
-// function Pricing() {
-//     const [payOpen, setPayOpen] = useState(false);
-//     const startPay = () => {
-//         const P = window.PAYMENT;
-//         // automatic hosted checkout when available, else the bit instructions modal
-//         if (P.checkoutLink) {
-//             window.open(P.checkoutLink, "_blank", "noopener");
-//             return;
-//         }
-//         setPayOpen(true);
-//     };
-//     return (
-//         <section id="pricing">
-//             <Strip num="04" title="מחיר הקורס" en="PRICING" meta="₪ · שקלים · תשלום אחד" />
-//             <div className="pricing-wrap" style={{padding: 0}}>
-//                 <table className="pricing-table">
-//                     <thead>
-//                         <tr>
-//                             <th style={{width: "34%"}}>מסלול / OPTION</th>
-//                             <th>פרטים</th>
-//                             <th>מחיר</th>
-//                             <th>למפגש</th>
-//                         </tr>
-//                     </thead>
-//                     <tbody>
-//                         {window.PRICING_ROWS.map((r, i) => (
-//                             <tr key={i} className={r.hi ? "hi" : ""}>
-//                                 <td>
-//                                     <div style={{fontWeight: 700}}>{r.he}</div>
-//                                     <div
-//                                         className="mono"
-//                                         style={{
-//                                             fontSize: 10,
-//                                             letterSpacing: "0.16em",
-//                                             opacity: 0.55,
-//                                             textTransform: "uppercase",
-//                                             marginTop: 2,
-//                                         }}
-//                                     >
-//                                         {r.en}
-//                                     </div>
-//                                 </td>
-//                                 <td className="mono" style={{fontSize: 12}}>
-//                                     {r.note}
-//                                 </td>
-//                                 <td className="num">{r.price}</td>
-//                                 <td className="mono" style={{fontSize: 12, opacity: 0.75}}>
-//                                     {r.per}
-//                                 </td>
-//                             </tr>
-//                         ))}
-//                     </tbody>
-//                 </table>
-//             </div>
-//             <div className="pay-cta rule-b">
-//                 <div className="lead">
-//                     מוכנים להתחיל?
-//                     <small>תשלום מאובטח · ביט / אשראי · קבלה אוטומטית</small>
-//                 </div>
-//                 <button className="btn btn--accent" onClick={startPay}>
-//                     תשלום מאובטח · {window.PAYMENT.amountLabel} <span className="arrow">→</span>
-//                 </button>
-//             </div>
-//             {payOpen && <BitPay onClose={() => setPayOpen(false)} />}
-//         </section>
-//     );
-// }
+function Pricing() {
+    const [payOpen, setPayOpen] = useState(false);
+    const startPay = () => {
+        const P = window.PAYMENT;
+        // automatic hosted checkout when available, else the bit instructions modal
+        if (P.checkoutLink) {
+            window.open(P.checkoutLink, "_blank", "noopener");
+            return;
+        }
+        setPayOpen(true);
+    };
+    return (
+        <section id="pricing">
+            <Strip num="04" title="מחיר הקורס" en="PRICING" />
+            <div className="pricing-wrap" style={{padding: 0}}>
+                <table className="pricing-table">
+                    <thead>
+                        <tr>
+                            <th style={{width: "34%"}}>מסלול / OPTION</th>
+                            <th>פרטים</th>
+                            <th>מיוחד</th>
+                         
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {window.PRICING_ROWS.map((r, i) => (
+                            <tr key={i} className={r.hi ? "hi" : ""}>
+                                <td>
+                                    <div style={{fontWeight: 700}}>{r.he}</div>
+                                    <div
+                                        className="mono"
+                                        style={{
+                                            fontSize: 10,
+                                            letterSpacing: "0.16em",
+                                            opacity: 0.55,
+                                            textTransform: "uppercase",
+                                            marginTop: 2,
+                                        }}
+                                    >
+                                        {r.en}
+                                    </div>
+                                </td>
+                                <td className="mono" style={{fontSize: 12}}>
+                                    {r.note}
+                                </td>
+                                <td className="num" style={{fontSize: 22, color: "rgb(3, 3, 3)",fontWeight:900}}>{r.special}</td>
+                                
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            
+             </div>
+         </section>
+     );
+ }
 
 /* ───────── Contact ───────── */
 function Contact() {
@@ -811,7 +803,7 @@ function App() {
                 <Marquee />
                 <Programs />
                 <About />
-                {/* <Pricing /> */}
+                <Pricing />
                 <Contact />
                 <Foot />
             </div>
