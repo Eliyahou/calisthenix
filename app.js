@@ -73,9 +73,6 @@ function Nav() {
                 <a href="#about" className="nav-link">
                     משה
                 </a>
-                <a href="#pricing" className="nav-link">
-                    מחיר
-                </a>
             </div>
             <div className="nav-mark">CALISTENIX</div>
             <div className="nav-right">
